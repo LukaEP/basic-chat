@@ -5,6 +5,8 @@ import { router } from "./routes";
 dotenv();
 
 import "./database";
+import "./database/models/User";
+import "./database/models/Chat";
 
 const app = express();
 
