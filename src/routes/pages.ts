@@ -2,8 +2,8 @@ import { Router } from "express";
 
 const router = Router();
 
-router.get("/:user_id?/:chat_id?", (req, res) => {
-    
+router.get("/", (req, res) => {
+    res.render("html/user.html");
 });
 
 export { router };
