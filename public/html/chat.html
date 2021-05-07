@@ -3,6 +3,38 @@
 
     </head>
     <body>
-        Chats
+        <div>
+            <h3>Chats</h3>
+            <br>
+            <div>
+                <label for="new-chat">Start Chat</label>
+                <br>
+                <input type="text" name="new-chat" id="new-chat">
+                <button id="call-button">
+                    Call
+                </button>
+            </div>
+        </div>
+        <script id="chats" type="x-tmtl-mustache">
+            <div id="chat{{_id}}" onclick="chatWith('{{_id}}')">
+                <span>{{name}}</span>
+            </div>
+        </script>
+
+        <script id="chatting" type="x-tmtl-mustache">
+            <div class="messages" id="messages">
+                <div class="me" id="my-messages">
+
+                </div>
+                <div class="other" id="its-messages">
+
+                </div>
+            </div>
+        </script>
     </body>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dayjs/1.10.4/dayjs.min.js"></script>
+    <script src="https://unpkg.com/mustache@latest"></script>
+    <script src="/js/chat.js"></script>
 </html>
