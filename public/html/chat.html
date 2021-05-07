@@ -14,8 +14,13 @@
                     Call
                 </button>
             </div>
+            <div>
+                <div id="chats-show">
+
+                </div>
+            </div>
         </div>
-        <script id="chats" type="x-tmtl-mustache">
+        <script id="template-chats" type="x-tmtl-mustache">
             <div id="chat{{_id}}" onclick="chatWith('{{_id}}')">
                 <span>{{name}}</span>
             </div>

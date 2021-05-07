@@ -9,8 +9,19 @@ function onload() {
             "user": url[5]
         })
     })
-    .then((data) => {
-        console.log(data.data);
+    .then(async (data) => {
+        let chats = await data.json();
+
+        const template_chats = document.getElementById('template-chats').innerHTML;
+
+        chats.chats.map((chat) => {
+            const rendered = Mustache.render(template_chats, {
+                _id: chat._id,
+                name: "teste"
+            });
+
+            document.getElementById('chats-show').innerHTML += rendered;
+        })
     })
     .catch((error) => {
         console.log(error);
@@ -29,7 +40,7 @@ document.getElementById('call-button').addEventListener('click', (event) => {
         })
     })
     .then((data) => {
-        console.log(data.data);
+        onload();
     })
     .catch((error) => {
         console.log(error);
