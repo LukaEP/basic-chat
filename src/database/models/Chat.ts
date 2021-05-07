@@ -1,9 +1,16 @@
 import { Schema, model } from "mongoose";
 
 const chat = new Schema({
+    users:[{
+        user: String
+    }],
     messages: [{
-        from: String,
-        message: String
+        message: String,
+        sent_by: String,
+        date: {
+            type: Date,
+            default: Date.now
+        }
     }]
 });
 

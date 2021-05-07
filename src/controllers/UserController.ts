@@ -14,7 +14,7 @@ class UserController {
         if (user) {
             return res.status(200).send({ user: user });
         } else {
-            const newUser = await this.userRepository.createNewUser(req.body);
+            const newUser = await this.userRepository.createNewUser(req.body.name, req.body.socket_id);
             return res.status(200).send({ user: newUser });
         }
     }

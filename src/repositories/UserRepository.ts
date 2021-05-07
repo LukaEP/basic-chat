@@ -16,10 +16,10 @@ class UserRepository {
         return await this.User.findOne({ name: name });
     }
 
-    async createNewUser(user: IUser) {
+    async createNewUser(name: String, socket_id: String) {
         const newUser = new this.User({
-            name: user.name,
-            socket_id: user.socket_id
+            name: name,
+            socket_id: socket_id
         });
 
         await newUser.save();

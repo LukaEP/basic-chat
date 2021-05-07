@@ -1,12 +1,9 @@
 import { Model, model, Document } from "mongoose";
 
-interface IMessages {
-    from: String,
-    message: String
-}
-
 interface IChat extends Document {
-    messages: Array<IMessages>
+    from: String,
+    to: String,
+    message: String
 }
 
 class ChatRepository {
@@ -15,11 +12,6 @@ class ChatRepository {
     constructor() {
         this.Chat = model("chat");
     }
-
-    hello() {
-        console.log("sss");
-    }
-
 }
 
 export { ChatRepository };
