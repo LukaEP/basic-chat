@@ -8,7 +8,7 @@ const userController = new UserController();
 const chatController = new ChatController();
 
 router.post("/user/check/username", userController.checkUsername);
-router.post("/chat/list/messages", chatController.listMessages);
+router.post("/chat/list/chats", chatController.listChats);
 router.post("/chat/new", chatController.newChat);
 
 export { router };

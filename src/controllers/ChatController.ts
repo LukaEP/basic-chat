@@ -11,7 +11,7 @@ class ChatController {
         this.userRepository = new UserRepository();
     }
 
-    listMessages = async(req: Request, res: Response) => {
+    listChats = async(req: Request, res: Response) => {
         const chats = await this.chatRepository.listChats(req.body.user);
 
         return res.status(200).send({ chats: chats });

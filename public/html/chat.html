@@ -26,6 +26,12 @@
                 <div id="display-messages">
 
                 </div>
+                <div class="send-messages">
+                    <input type="text" id="text-message">
+                    <button onclick="sendMessage()">
+                        Send
+                    </button>
+                </div>
             </div>
         </div>
         <script id="template-chats" type="x-tmtl-mustache">
@@ -42,12 +48,6 @@
                 </div>
                 <div class="messages-from-other" id="its-messages">
 
-                </div>
-                <div class="send-messages">
-                    <input type="text" id="text-message">
-                    <button onclick="sendMessage('{{chat_id}}', '{{my_id}}')">
-                        Send
-                    </button>
                 </div>
             </div>
         </script>

@@ -6,7 +6,7 @@ router.get("/", (req, res) => {
     res.render("html/user.html");
 });
 
-router.get("/user/:user", (req, res) => {
+router.get("/user/:user/:chat_id?", (req, res) => {
     res.render("html/chat.html");
 });
 

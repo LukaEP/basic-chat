@@ -3,8 +3,23 @@ var socket = io();
 
 onload();
 
+socket.on("receive_messages", (messages) => {
+    const templateChatting = document.getElementById('template-chatting').innerHTML;
+
+    messages.messages.map((message) => {
+        const rendered = Mustache.render(templateChatting, {
+            message: message.message,
+            date: message.date,
+            chat_id: messages._id,
+            my_id: url[5]
+        });
+
+        document.getElementById('display-messages').innerHTML += rendered;
+    });
+});
+
 function onload() {
-    fetch(`http://localhost:3033/api/chat/list/messages`, {
+    fetch(`http://localhost:3033/api/chat/list/chats`, {
         method: "POST",
         headers: { 'Content-type': 'application/json' },
         body: JSON.stringify({
@@ -23,7 +38,17 @@ function onload() {
             });
 
             document.getElementById('chats-show').innerHTML += rendered;
-        })
+        });
+
+        let params = {
+            user: url[5],
+            chat: url[6]
+        };
+
+        if (url[6]) {
+            socket.emit("call_messages", params);
+        }
+
     })
     .catch((error) => {
         console.log(error);
@@ -50,38 +75,16 @@ document.getElementById('call-button').addEventListener('click', (event) => {
 });
 
 function chatWith(id) {
-    socket.emit("receive_messages", id, (messages) => {
-        const templateChatting = document.getElementById('template-chatting').innerHTML;
-
-        if (messages.messages.length <= 0) {
-            const rendered = Mustache.render(templateChatting, {
-                chat_id: messages._id,
-                my_id: url[5]
-            });
-
-            document.getElementById('display-messages').innerHTML += rendered;
-        }
-
-        messages.messages.map((message) => {
-            const rendered = Mustache.render(templateChatting, {
-                message: message.message,
-                date: message.date,
-                chat_id: messages._id,
-                my_id: url[5]
-            });
-
-            document.getElementById('display-messages').innerHTML += rendered;
-        });
-    });
+    window.location.href = `http://localhost:3033/pages/user/${url[5]}/${id}`;
 }
 
-function sendMessage(chat_id, my_id) {
+function sendMessage() {
     const message = document.getElementById('text-message').value;
     
     const params = {
         "message": message,
-        "sent_by": my_id,
-        "chat_id": chat_id
+        "sent_by": url[5],
+        "chat_id": url[6]
     }
 
     socket.emit('send_message', params);

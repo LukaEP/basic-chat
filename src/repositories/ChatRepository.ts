@@ -1,4 +1,4 @@
-import { Model, model, Document } from "mongoose";
+import { Model, model, Document, now } from "mongoose";
 import { UserRepository } from "./UserRepository";
 
 interface IChat extends Document {
@@ -76,6 +76,10 @@ class ChatRepository {
                 }
             }
         });
+    }
+
+    async listLastMessageByChat(chatId: String) {
+        return await this.Chat.findOne({ "messages.date": now });
     }
 }
 
