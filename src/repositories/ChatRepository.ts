@@ -1,30 +1,52 @@
 import { Model, model, Document } from "mongoose";
+import { UserRepository } from "./UserRepository";
 
 interface IChat extends Document {
-    from: String,
-    to: String,
-    message: String
+    messages: Array<IMessages>,
+    users: Array<IUsers>
 }
 
 interface IUsers {
+    user: String
+}
+
+interface IMessages {
+    message: String,
+    sent_by: String,
+    date: Date
+}
+
+interface IRequestUser {
     me: String,
     it: String
 }
 
 class ChatRepository {
     private Chat: Model<IChat>;
+    private userRepository: UserRepository;
 
     constructor() {
         this.Chat = model("chat");
+        this.userRepository = new UserRepository();
     }
 
     async listChats(user: String) {
-        const chats = await this.Chat.find({ "users.user": user });
+        let usersChats = [];
+        const chats = await this.Chat.find({ "users.user": user }).select('users _id');
 
-        return chats;
+        for await (let chat of chats) {
+            let ouser = await this.userRepository.findUserById(chat.users.filter((u) => u.user !== user)[0].user);
+            
+            usersChats.push({
+                "user": ouser,
+                "chat_id": chat._id
+            });
+        }
+
+        return usersChats;
     }
 
-    async createNewChat(users: IUsers) {
+    async createNewChat(users: IRequestUser) {
         const newChat = new this.Chat({
             users: [
                 {

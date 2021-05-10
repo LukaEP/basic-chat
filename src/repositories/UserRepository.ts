@@ -26,6 +26,10 @@ class UserRepository {
 
         return newUser;
     }
+
+    async findUserById(id: String): Promise<IUser> {
+        return await this.User.findById(id);
+    }
 }
 
 export { UserRepository };

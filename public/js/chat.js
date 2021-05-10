@@ -15,9 +15,10 @@ function onload() {
         const template_chats = document.getElementById('template-chats').innerHTML;
 
         chats.chats.map((chat) => {
+            console.log(chat);
             const rendered = Mustache.render(template_chats, {
-                _id: chat._id,
-                name: "teste"
+                _id: chat.chat_id,
+                name: chat.user.name
             });
 
             document.getElementById('chats-show').innerHTML += rendered;
