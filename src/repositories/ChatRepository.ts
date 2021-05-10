@@ -60,6 +60,23 @@ class ChatRepository {
 
         return await newChat.save();
     }
+
+    async listMessagesByChat(chat: String) {
+        const messages = await this.Chat.findById(chat).select("messages");
+
+        return messages;
+    }
+
+    async saveNewMessage(sentBy: String, chatId: String, message: String) {
+        return await this.Chat.updateOne({ "_id": chatId }, {
+            $push: {
+                "messages": {
+                    "message": message,
+                    "sent_by": sentBy
+                }
+            }
+        });
+    }
 }
 
 export { ChatRepository };

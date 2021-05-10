@@ -1,4 +1,6 @@
 var url = window.location.href.split("/");
+var socket = io();
+
 onload();
 
 function onload() {
@@ -15,7 +17,6 @@ function onload() {
         const template_chats = document.getElementById('template-chats').innerHTML;
 
         chats.chats.map((chat) => {
-            console.log(chat);
             const rendered = Mustache.render(template_chats, {
                 _id: chat.chat_id,
                 name: chat.user.name
@@ -47,3 +48,41 @@ document.getElementById('call-button').addEventListener('click', (event) => {
         console.log(error);
     })
 });
+
+function chatWith(id) {
+    socket.emit("receive_messages", id, (messages) => {
+        const templateChatting = document.getElementById('template-chatting').innerHTML;
+
+        if (messages.messages.length <= 0) {
+            const rendered = Mustache.render(templateChatting, {
+                chat_id: messages._id,
+                my_id: url[5]
+            });
+
+            document.getElementById('display-messages').innerHTML += rendered;
+        }
+
+        messages.messages.map((message) => {
+            const rendered = Mustache.render(templateChatting, {
+                message: message.message,
+                date: message.date,
+                chat_id: messages._id,
+                my_id: url[5]
+            });
+
+            document.getElementById('display-messages').innerHTML += rendered;
+        });
+    });
+}
+
+function sendMessage(chat_id, my_id) {
+    const message = document.getElementById('text-message').value;
+    
+    const params = {
+        "message": message,
+        "sent_by": my_id,
+        "chat_id": chat_id
+    }
+
+    socket.emit('send_message', params);
+}

@@ -1,41 +1,74 @@
 <html>
     <head>
-
+        <title>Chat</title>
     </head>
     <body>
-        <div>
-            <h3>Chats</h3>
-            <br>
-            <div>
-                <label for="new-chat">Start Chat</label>
+        <div style="display: felx;">
+            <div style="width: 15%;">
+                <h1>Chats</h1>
                 <br>
-                <input type="text" name="new-chat" id="new-chat">
-                <button id="call-button">
-                    Call
-                </button>
+                <div>
+                    <label for="new-chat">Start Chat</label>
+                    <br>
+                    <input type="text" name="new-chat" id="new-chat">
+                    <button id="call-button">
+                        Call
+                    </button>
+                </div>
+                <br>
+                <div>
+                    <div id="chats-show">
+
+                    </div>
+                </div>
             </div>
-            <div>
-                <div id="chats-show">
+            <div class="display-chat">
+                <div id="display-messages">
 
                 </div>
             </div>
         </div>
         <script id="template-chats" type="x-tmtl-mustache">
-            <div id="chat{{_id}}" onclick="chatWith('{{_id}}')">
-                <span>{{name}}</span>
+            <div id="chat{{_id}}" class="chats" onclick="chatWith('{{_id}}')">
+                <span class="chat-user">{{name}}</span>
             </div>
         </script>
 
-        <script id="chatting" type="x-tmtl-mustache">
+        <script id="template-chatting" type="x-tmtl-mustache">
             <div class="messages" id="messages">
-                <div class="me" id="my-messages">
+                <div class="messages-from-me" id="my-messages">
+                    <small>{{date}}</small>
+                    <label>{{message}}</label>
+                </div>
+                <div class="messages-from-other" id="its-messages">
 
                 </div>
-                <div class="other" id="its-messages">
-
+                <div class="send-messages">
+                    <input type="text" id="text-message">
+                    <button onclick="sendMessage('{{chat_id}}', '{{my_id}}')">
+                        Send
+                    </button>
                 </div>
             </div>
         </script>
+
+        <style>
+            .chats {
+                width: 100%;
+                height: 40px;
+                border: 1px solid lightgray;
+                line-height: 40px;
+            }
+
+            .chat-user {
+                margin: 10px;
+            }
+
+            .display-chat {
+                width: 83%;
+                height: 85%;
+            }
+        </style>
     </body>
 
     <script src="/socket.io/socket.io.js"></script>
