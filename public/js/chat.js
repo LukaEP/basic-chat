@@ -4,18 +4,27 @@ var socket = io();
 onload();
 
 socket.on("receive_messages", (messages) => {
-    const templateChatting = document.getElementById('template-chatting').innerHTML;
+    document.getElementById('display-messages').innerHTML = null;
 
     messages.messages.map((message) => {
+        let date = new Date(message.date);
+
+        let displayDate = `${date.getDate()}/${date.getMonth()} ${date.getHours()}:${date.getMinutes()}`;
+
+        let template = message.sent_by === url[5] ? 'template-chatting-me' : 'template-chatting-other';
+
+        const templateChatting = document.getElementById(template).innerHTML;
+
         const rendered = Mustache.render(templateChatting, {
-            message: message.message,
-            date: message.date,
-            chat_id: messages._id,
-            my_id: url[5]
+            "message": message.message,
+            "date": displayDate
         });
 
         document.getElementById('display-messages').innerHTML += rendered;
     });
+
+    const scrollDiv = document.getElementById('display-messages');
+    scrollDiv.scrollTop = scrollDiv.scrollHeight;
 });
 
 function onload() {
@@ -27,6 +36,7 @@ function onload() {
         })
     })
     .then(async (data) => {
+        document.getElementById('chats-show').innerHTML = null;
         let chats = await data.json();
 
         const template_chats = document.getElementById('template-chats').innerHTML;
@@ -80,7 +90,7 @@ function chatWith(id) {
 
 function sendMessage() {
     const message = document.getElementById('text-message').value;
-    
+
     const params = {
         "message": message,
         "sent_by": url[5],

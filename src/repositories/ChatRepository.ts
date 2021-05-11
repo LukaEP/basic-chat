@@ -81,6 +81,12 @@ class ChatRepository {
     async listLastMessageByChat(chatId: String) {
         return await this.Chat.findOne({ "messages.date": now });
     }
+
+    async listUsersFromChat(chatId: String, myUser: String) {
+        let users = await this.Chat.findById(chatId).select("users");
+
+        return users.users.filter((u) => u.user != myUser);
+    }
 }
 
 export { ChatRepository };

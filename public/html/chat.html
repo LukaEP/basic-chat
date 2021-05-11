@@ -3,7 +3,7 @@
         <title>Chat</title>
     </head>
     <body>
-        <div style="display: felx;">
+        <div style="display: flex">
             <div style="width: 15%;">
                 <h1>Chats</h1>
                 <br>
@@ -26,9 +26,10 @@
                 <div id="display-messages">
 
                 </div>
+                <br>
                 <div class="send-messages">
                     <input type="text" id="text-message">
-                    <button onclick="sendMessage()">
+                    <button onclick="sendMessage()" class="button-send-message">
                         Send
                     </button>
                 </div>
@@ -40,15 +41,20 @@
             </div>
         </script>
 
-        <script id="template-chatting" type="x-tmtl-mustache">
+        <script id="template-chatting-me" type="x-tmtl-mustache">
             <div class="messages" id="messages">
                 <div class="messages-from-me" id="my-messages">
-                    <small>{{date}}</small>
                     <label>{{message}}</label>
+                    <br>
+                    <small>{{date}}</small>
                 </div>
-                <div class="messages-from-other" id="its-messages">
-
-                </div>
+            </div>
+        </script>
+        <script id="template-chatting-other" type="x-tmtl-mustache">
+            <div class="messages-from-other" id="its-messages">
+                <label>{{message}}</label>
+                <br>
+                <small>{{date}}</small>
             </div>
         </script>
 
@@ -67,6 +73,42 @@
             .display-chat {
                 width: 83%;
                 height: 85%;
+                float: right;
+                margin-left: 20px;
+                margin-top: 150px;
+            }
+
+            #display-messages {
+                float: right;
+                width: 10%;
+                height: 400px;
+                overflow: auto;
+            }
+
+            .send-messages {
+                width: 100%;
+            }
+
+            #text-message {
+                width: 95%;
+            }
+
+            .button-send-message {
+                width: 4%;
+            }
+
+            .messages-from-me {
+                margin: 10px;
+                border: mediumturquoise 1px solid;
+                padding: 5px;
+                border-radius: 15px;
+            }
+
+            .messages-from-other {
+                margin: 10px;
+                border: mediumvioletred 1px solid;
+                padding: 5px;
+                border-radius: 15px;
             }
         </style>
     </body>
