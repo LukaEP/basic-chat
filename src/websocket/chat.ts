@@ -18,11 +18,12 @@ io.on('connect', async (socket) => {
     });
 
     socket.on("call_messages", async (params) => {
+        socket.join(params.chat);
         socket.emit("receive_messages", await chatRepository.listMessagesByChat(params.chat));
     });
 
     socket.on('send_message', async (params) => {
         await chatRepository.saveNewMessage(params.sent_by, params.chat_id, params.message);
-        socket.emit("receive_messages", await chatRepository.listMessagesByChat(params.chat_id));
+        io.sockets.in(params.chat_id).emit("receive_messages", await chatRepository.listMessagesByChat(params.chat_id));
     });
 });
