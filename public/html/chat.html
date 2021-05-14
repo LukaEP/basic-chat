@@ -28,10 +28,10 @@
                 </div>
                 <br>
                 <div class="send-messages">
-                    <input type="text" id="text-message">
-                    <button onclick="sendMessage()" class="button-send-message">
-                        Send
-                    </button>
+                    <form onsubmit="sendMessage(); return false">
+                        <input type="text" id="text-message">
+                        <input type="submit" value="Send" class="button-send-message">
+                    </form>
                 </div>
             </div>
         </div>
@@ -51,10 +51,12 @@
             </div>
         </script>
         <script id="template-chatting-other" type="x-tmtl-mustache">
-            <div class="messages-from-other" id="its-messages">
-                <label>{{message}}</label>
-                <br>
-                <small>{{date}}</small>
+            <div class="messages">
+                <div class="messages-from-other" id="its-messages">
+                    <label>{{message}}</label>
+                    <br>
+                    <small>{{date}}</small>
+                </div>
             </div>
         </script>
 
@@ -80,7 +82,7 @@
 
             #display-messages {
                 float: right;
-                width: 10%;
+                width: 100%;
                 height: 400px;
                 overflow: auto;
             }
@@ -97,16 +99,20 @@
                 width: 4%;
             }
 
-            .messages-from-me {
+            .messages {
                 margin: 10px;
+            }
+
+            .messages-from-me {
                 border: mediumturquoise 1px solid;
+                width: 10%;
                 padding: 5px;
                 border-radius: 15px;
             }
 
             .messages-from-other {
-                margin: 10px;
                 border: mediumvioletred 1px solid;
+                width: 10%;
                 padding: 5px;
                 border-radius: 15px;
             }

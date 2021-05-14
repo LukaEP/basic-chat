@@ -98,4 +98,6 @@ function sendMessage() {
     }
 
     socket.emit('send_message', params);
+
+    document.getElementById('text-message').value = null;
 }
