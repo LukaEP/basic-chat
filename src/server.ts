@@ -2,5 +2,5 @@ import { http } from "./app";
 import "./websocket/chat";
 
 http.listen(3033, () => {
-    console.log("Running");
+    console.log("Server up on port 3033!");
 });
