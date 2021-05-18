@@ -2,6 +2,7 @@ import { Model, model, Document } from "mongoose";
 
 interface IUser extends Document {
     name: String,
+    password: String,
     socket_id: String
 }
 
@@ -16,9 +17,10 @@ class UserRepository {
         return await this.User.findOne({ name: name });
     }
 
-    async createNewUser(name: String, socket_id: String) {
+    async createNewUser(name: String, socket_id: String, password: String) {
         const newUser = new this.User({
             name: name,
+            password: password,
             socket_id: socket_id
         });
 

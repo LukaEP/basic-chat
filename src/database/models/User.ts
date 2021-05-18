@@ -5,6 +5,7 @@ const user = new Schema({
         type: String,
         unique: true
     },
+    password: String,
     socket_id: String
 });
 
