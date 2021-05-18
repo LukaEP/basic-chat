@@ -1,6 +1,6 @@
 <html>
     <head>
-        <title>Chat</title>
+        <title>Basic Chat</title>
     </head>
     <body>
         <div style="display: flex">
@@ -27,7 +27,7 @@
 
                 </div>
                 <br>
-                <div class="send-messages">
+                <div id="send-messages">
                     <form onsubmit="sendMessage(); return false">
                         <input type="text" id="text-message">
                         <input type="submit" value="Send" class="button-send-message">
@@ -87,7 +87,7 @@
                 overflow: auto;
             }
 
-            .send-messages {
+            #send-messages {
                 width: 100%;
             }
 

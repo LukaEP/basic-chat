@@ -56,7 +56,10 @@ function onload() {
         };
 
         if (url[6]) {
+            document.getElementById('send-messages').style.display = "block";
             socket.emit("call_messages", params);
+        } else {
+            document.getElementById('send-messages').style.display = "none";
         }
 
     })
@@ -78,6 +81,7 @@ document.getElementById('call-button').addEventListener('click', (event) => {
     })
     .then((data) => {
         onload();
+        document.getElementById('new-chat').value = null;
     })
     .catch((error) => {
         console.log(error);
