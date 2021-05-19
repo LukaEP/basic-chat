@@ -7,14 +7,14 @@ io.on('connect', async (socket) => {
     const chatRepository = new ChatRepository();
 
     socket.on("send_username", async (params, callback) => {
-        const user = await userRepository.checkIfUserExistsByName(params);
+        // const user = await userRepository.checkIfUserExistsByName(params);
 
-        if (user) {
-            callback(user);
-        } else {
-            const newUser = await userRepository.createNewUser(params, socket.id);
-            callback(newUser);
-        }
+        // if (user) {
+        //     callback(user);
+        // } else {
+        //     const newUser = await userRepository.createNewUser(params, socket.id);
+        //     callback(newUser);
+        // }
     });
 
     socket.on("call_messages", async (params) => {
