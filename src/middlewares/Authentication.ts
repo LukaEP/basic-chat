@@ -3,7 +3,7 @@ import { verify } from "jsonwebtoken";
 
 class Authentication {
     async auth(req: Request, res: Response, next: NextFunction) {
-        let token = req.headers["authorization"];
+        let token = req.cookies.auth_token;
 
         if (!token) {
             res.status(401).send({ message: "Unauthorized" });

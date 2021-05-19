@@ -8,6 +8,9 @@ import "./database";
 import "./database/models/User";
 import "./database/models/Chat";
 
+import cookieParser from "cookie-parser";
+app.use(cookieParser());
+
 import path from "path";
 
 app.use(express.static(path.join(__dirname, '..', 'public')));

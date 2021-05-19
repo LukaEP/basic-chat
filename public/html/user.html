@@ -12,12 +12,21 @@
     </head>
     <body>
         <div style="margin: 1%">
-            <label for="user">Username</label>
-            <input type="text" name="user" id="user">
-            <br>
-            <button id="button">
-                Go
-            </button>
+            <form onsubmit="return false;">
+                <label for="user">Username</label>
+                <input type="text" name="user" id="user">
+                <br>
+                <label for="pass">Password</label>
+                <input type="password" name="pass" id="pass">
+                <br>
+                <br>
+                <button id="login">
+                    Login
+                </button>
+                <button id="create-user">
+                    Create New User
+                </button>
+            </form>
         </div>
 
         <script src="/socket.io/socket.io.js"></script>
