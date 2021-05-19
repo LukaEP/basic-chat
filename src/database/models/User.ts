@@ -5,7 +5,8 @@ const user = new Schema({
         type: String,
         unique: true
     },
-    password: String
+    password: String,
+    active_token: String
 });
 
 export default model("users", user);

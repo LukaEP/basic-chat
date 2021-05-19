@@ -32,7 +32,7 @@ function onload() {
         method: "POST",
         headers: { 'Content-type': 'application/json' },
         body: JSON.stringify({
-            "user": url[5]
+            "user_me": url[5]
         })
     })
     .then(async (data) => {

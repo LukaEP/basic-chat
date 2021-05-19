@@ -14,7 +14,10 @@ class UserController {
         const user = await this.userRepository.checkIfUserExistsByName(req.body.name);
 
         if (user && await this.decrypt(req.body.password, user.password)) {
-            let token = signToken({ id: user.id }, process.env.JWT_SECRET);
+            const token = signToken({ id: user.id }, process.env.JWT_SECRET);
+
+            await this.userRepository.updateUserToken(user.id, token);
+
             res.status(200).send({ user: user.id, token: token });
         } else {
             res.status(400).send({ message: "Invalid arguments" });
@@ -22,12 +25,15 @@ class UserController {
     }
 
     createNewUser = async(req: Request, res: Response) => {
-        const newUser = await this.userRepository.createNewUser(req.body.name, (await this.ecrypt(req.body.password)).toString());
-        let token = signToken({ id: newUser.id }, process.env.JWT_SECRET);
+        const newUser = await this.userRepository.createNewUser(req.body.name, await this.ecrypt(req.body.password));
+        const token = signToken({ id: newUser.id }, process.env.JWT_SECRET);
+
+        await this.userRepository.updateUserToken(newUser.id, token);
+
         return res.status(200).send({ user: newUser.id, token: token });
     }
 
-    private ecrypt = async (password: string): Promise<String> => {
+    private ecrypt = async (password: string): Promise<string> => {
         return await hash(password, 10).then((hash) => {
             return hash;
         });

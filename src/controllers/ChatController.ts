@@ -12,7 +12,7 @@ class ChatController {
     }
 
     listChats = async(req: Request, res: Response) => {
-        const chats = await this.chatRepository.listChats(req.body.user);
+        const chats = await this.chatRepository.listChats(req.body.user_me);
 
         return res.status(200).send({ chats: chats });
     }
