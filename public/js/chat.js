@@ -96,3 +96,12 @@ function sendMessage() {
 
     document.getElementById('text-message').value = null;
 }
+
+function logout() {
+    axios.post(`http://localhost:3033/api/user/logout`, {
+        "user_me": url[5]
+    })
+    .then(() => {
+        window.location.href = `http://localhost:3033/pages/`;
+    })
+}

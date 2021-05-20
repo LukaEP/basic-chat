@@ -9,9 +9,10 @@ const userController = new UserController();
 const chatController = new ChatController();
 const authenticationMiddleware = new Authentication();
 
-router.post("/user/login", userController.login);
 router.post("/user/create/user", userController.createNewUser);
-router.post("/chat/list/chats",  authenticationMiddleware.auth, chatController.listChats);
+router.post("/user/login", userController.login);
+router.post("/user/logout", authenticationMiddleware.auth, userController.logout);
 router.post("/chat/new", authenticationMiddleware.auth, chatController.newChat);
+router.post("/chat/list/chats",  authenticationMiddleware.auth, chatController.listChats);
 
 export { router };

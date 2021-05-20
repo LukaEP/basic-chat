@@ -24,7 +24,7 @@ class UserController {
         }
     }
 
-    createNewUser = async(req: Request, res: Response) => {
+    createNewUser = async (req: Request, res: Response) => {
         const newUser = await this.userRepository.createNewUser(req.body.name, await this.ecrypt(req.body.password));
         const token = signToken({ id: newUser.id }, process.env.JWT_SECRET);
 
@@ -43,6 +43,14 @@ class UserController {
         return await compare(decryptedPassword, encryptedPassword).then((result) => {
             return result;
         });
+    }
+
+    logout = async (req: Request, res: Response) => {
+        res.clearCookie("auth_token");
+
+        await this.userRepository.updateUserToken(req.body.user_me, null);
+
+        return res.status(200).send({ message: "Logged out" });
     }
 }
 
