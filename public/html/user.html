@@ -11,24 +11,50 @@
         <title>Basic Chat</title>
     </head>
     <body>
-        <div style="margin: 1%">
-            <form onsubmit="return false;">
-                <label for="user">Username</label>
-                <input type="text" name="user" id="user">
-                <br>
-                <label for="pass">Password</label>
-                <input type="password" name="pass" id="pass">
-                <br>
-                <br>
-                <button id="login">
-                    Login
-                </button>
-                <button id="create-user">
-                    Create New User
-                </button>
-            </form>
+        <div style="display: flex;">
+            <div style="margin: 1%; width: 50%;">
+                <form onsubmit="return false;">
+                    <label for="user">Username</label>
+                    <input type="text" name="user" id="user">
+                    <br>
+                    <label for="pass">Password</label>
+                    <input type="password" name="pass" id="pass">
+                    <br>
+                    <br>
+                    <button id="login">
+                        Login
+                    </button>
+                    <button id="create-user">
+                        Create New User
+                    </button>
+                </form>
+            </div>
+            <div class="invalid-box">
+                <div class="invalid">
+                    Invalid Arguments
+                </div>
+            </div>
         </div>
 
+        <style>
+            .invalid {
+                color: red;
+                text-align: center;
+                border: 2px red double;
+                width: 20%;
+                padding: 10px;
+                float: right;
+                border-radius: 5px;
+            }
+
+            .invalid-box {
+                margin: 1%;
+                width: 50%;
+                display: none;
+            }
+        </style>
+
+        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
         <script src="/socket.io/socket.io.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/dayjs/1.10.4/dayjs.min.js"></script>
         <script src="https://unpkg.com/mustache@latest"></script>
