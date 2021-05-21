@@ -50,7 +50,7 @@ class UserController {
 
         await this.userRepository.updateUserToken(req.body.user_me, null);
 
-        return res.status(200).send({ message: "Logged out" });
+        return res.status(204);
     }
 }
 

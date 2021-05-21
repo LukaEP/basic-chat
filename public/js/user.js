@@ -23,7 +23,7 @@ document.getElementById('create-user').addEventListener('click', () => {
     let username = document.getElementById('user').value;
     let password = document.getElementById('pass').value;
 
-    axios.post('http://localhost:3033/api/user/create/user', {
+    axios.post('http://localhost:3033/api/user', {
         "name": username,
         "password": password
     }).then(async (data) => {

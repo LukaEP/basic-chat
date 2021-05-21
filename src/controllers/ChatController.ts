@@ -12,7 +12,7 @@ class ChatController {
     }
 
     listChats = async(req: Request, res: Response) => {
-        const chats = await this.chatRepository.listChats(req.body.user_me);
+        const chats = await this.chatRepository.listChats(req.params.user);
 
         return res.status(200).send({ chats: chats });
     }
@@ -23,12 +23,12 @@ class ChatController {
             return res.status(400).send({ message: "User does not exists" });
         }
 
-        await this.chatRepository.createNewChat({
+        const newChat = await this.chatRepository.createNewChat({
             me: req.body.user_me,
             it: anotherUser._id
         });
 
-        return res.status(201).send({ message: "Chat created" });
+        return res.status(201).send({ chat: newChat });
     }
 }
 

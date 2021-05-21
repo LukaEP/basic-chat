@@ -28,9 +28,7 @@ socket.on("receive_messages", (messages) => {
 });
 
 function onload() {
-    axios.post(`http://localhost:3033/api/chat/list/chats`, {
-        "user_me": url[5]
-    })
+    axios.get(`http://localhost:3033/api/chats/${url[5]}`)
     .then(async (data) => {
         document.getElementById('chats-show').innerHTML = null;
 
@@ -66,7 +64,7 @@ function onload() {
 document.getElementById('call-button').addEventListener('click', (event) => {
     let newChat = document.getElementById('new-chat').value;
 
-    axios.post(`http://localhost:3033/api/chat/new`, {
+    axios.post(`http://localhost:3033/api/chats`, {
         "other_user": newChat,
         "user_me": url[5]
     })
