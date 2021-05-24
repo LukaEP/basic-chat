@@ -87,6 +87,25 @@ class ChatRepository {
 
         return users.users.filter((u) => u.user != myUser);
     }
+
+    async checkIfChatAlreadyExists(me: String, other: String): Promise<Boolean> {
+        const myChats = await this.Chat.find({ "users.user": me }).select("users");
+        var exists = false;
+
+        for await (let chat of myChats) {
+            chat.users.map((user) => {
+                if (user.user == other) {
+                    exists = true;
+                }
+            });
+
+            if (exists) {
+                break;
+            }
+        }
+
+        return exists;
+    }
 }
 
 export { ChatRepository };

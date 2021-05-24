@@ -23,12 +23,20 @@ class ChatController {
             return res.status(400).send({ message: "User does not exists" });
         }
 
-        const newChat = await this.chatRepository.createNewChat({
-            me: req.body.user_me,
-            it: anotherUser._id
-        });
+        if (anotherUser._id == req.body.user_me) {
+            return res.status(400).send({ message: "You cannot create a chat with yourself" });
+        }
 
-        return res.status(201).send({ chat: newChat });
+        if (await this.chatRepository.checkIfChatAlreadyExists(req.body.user_me, anotherUser._id)) {
+            return res.status(400).send({ message: "Chat Already Exists" });
+        } else {
+            const newChat = await this.chatRepository.createNewChat({
+                me: req.body.user_me,
+                it: anotherUser._id
+            });
+    
+            return res.status(201).send({ chat: newChat });
+        }
     }
 }
 
