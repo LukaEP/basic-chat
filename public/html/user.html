@@ -11,46 +11,44 @@
         <title>Basic Chat</title>
     </head>
     <body>
-        <div style="display: flex;">
-            <div style="margin: 1%; width: 50%;">
-                <form onsubmit="return false;">
-                    <label for="user">Username</label>
-                    <input type="text" name="user" id="user">
-                    <br>
-                    <label for="pass">Password</label>
-                    <input type="password" name="pass" id="pass">
-                    <br>
-                    <br>
-                    <button id="login">
-                        Login
-                    </button>
-                    <button id="create-user">
-                        Create New User
-                    </button>
-                </form>
+        <div class="error-box">
+            <div class="error">
+                <label id="message-error"></label>
             </div>
-            <div class="invalid-box">
-                <div class="invalid">
-                    Invalid Arguments
-                </div>
-            </div>
+        </div>
+        <div style="margin: 1%; width: 50%;">
+            <form onsubmit="return false;">
+                <label for="user">Username</label>
+                <input type="text" name="user" id="user">
+                <br>
+                <label for="pass">Password</label>
+                <input type="password" name="pass" id="pass">
+                <br>
+                <br>
+                <button id="login">
+                    Login
+                </button>
+                <button id="create-user">
+                    Create New User
+                </button>
+            </form>
         </div>
 
         <style>
-            .invalid {
+            .error {
                 color: red;
                 text-align: center;
                 border: 2px red double;
-                width: 20%;
                 padding: 10px;
-                float: right;
                 border-radius: 5px;
             }
 
-            .invalid-box {
+            .error-box {
+                position: absolute;
                 margin: 1%;
-                width: 50%;
+                width: 15%;
                 display: none;
+                right: 0;
             }
         </style>
 

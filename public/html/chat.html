@@ -3,6 +3,11 @@
         <title>Basic Chat</title>
     </head>
     <body>
+        <div class="error-box">
+            <div class="error">
+                <label id="message-error"></label>
+            </div>
+        </div>
         <div>
             <button onclick="logout()">
                 Logout
@@ -120,6 +125,22 @@
                 width: 10%;
                 padding: 5px;
                 border-radius: 15px;
+            }
+
+            .error {
+                color: red;
+                text-align: center;
+                border: 2px red double;
+                padding: 10px;
+                border-radius: 5px;
+            }
+
+            .error-box {
+                position: absolute;
+                margin: 1%;
+                width: 15%;
+                display: none;
+                right: 0;
             }
         </style>
     </body>

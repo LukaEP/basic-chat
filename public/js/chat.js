@@ -73,7 +73,10 @@ document.getElementById('call-button').addEventListener('click', (event) => {
         document.getElementById('new-chat').value = null;
     })
     .catch((error) => {
-        console.log(error);
+        if (error.response.status == 400) {
+            document.querySelector(".error-box").style.display = "block";
+            document.getElementById("message-error").innerHTML = error.response.data.message;
+        }
     })
 });
 
@@ -100,6 +103,7 @@ function logout() {
         "user_me": url[5]
     })
     .then(() => {
+        window.localStorage.removeItem("auth_token");
         window.location.href = `http://localhost:3033/pages/`;
     })
 }

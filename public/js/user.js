@@ -7,14 +7,17 @@ document.getElementById('login').addEventListener('click', () => {
         "password": password
     })
     .then((data) => {
-        document.cookie = `auth_token=${data.data.token}`;
+        window.localStorage.setItem("auth_token", data.data.token);
+        axios.defaults.headers.common['Authorization'] = data.data.token;
+
         document.location.href = `http://localhost:3033/pages/user/${data.data.user}`;
     })
     .catch((error) => {
-        document.querySelector(".invalid-box").style.display = "block";
+        document.querySelector(".error-box").style.display = "block";
+        document.getElementById("message-error").innerHTML = error.response.data.message;
 
         setTimeout(() => {
-            document.querySelector(".invalid-box").style.display = "none";
+            document.querySelector(".error-box").style.display = "none";
         }, 3000);
     })
 });

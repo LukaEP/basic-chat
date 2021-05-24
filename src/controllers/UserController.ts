@@ -46,8 +46,6 @@ class UserController {
     }
 
     logout = async (req: Request, res: Response) => {
-        res.clearCookie("auth_token");
-
         await this.userRepository.updateUserToken(req.body.user_me, null);
 
         return res.status(204);
