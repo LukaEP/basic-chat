@@ -103,7 +103,10 @@ function logout() {
         "user_me": url[5]
     })
     .then(() => {
-        window.localStorage.removeItem("auth_token");
+        console.log("OK");
         window.location.href = `http://localhost:3033/pages/`;
+    })
+    .catch((error) => {
+        console.log(error);
     })
 }
