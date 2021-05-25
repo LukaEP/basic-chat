@@ -13,19 +13,19 @@ class Authentication {
         const token = req.cookies.auth_token;
         const userId = !req.params.user ? req.body.user_me : req.params.user;
         if (!token) {
-            res.status(401).send({ message: "Unauthorized" });
+            return res.status(401).redirect("/pages/");
         } else {
             try {
                 await verify(token, process.env.JWT_SECRET, async (err: VerifyErrors, decoded) => {
                     const user = await this.userRepository.findUserById(userId);
                     if (user.active_token != token) {
-                        res.status(401).send({ message: "Unauthorized" });
+                        return res.redirect("/pages/");
                     } else {
-                        next();
+                        return next();
                     }
                 });
             } catch(error) {
-                res.status(401).send({ message: "Unauthorized" });
+                return res.status(401).redirect("/pages/");
             }
         }
     }
