@@ -7,10 +7,7 @@ document.getElementById('login').addEventListener('click', () => {
         "password": password
     })
     .then((data) => {
-        window.localStorage.setItem("auth_token", data.data.token);
-        axios.defaults.headers.common['Authorization'] = data.data.token;
-
-        document.location.href = `http://localhost:3033/pages/user/${data.data.user}`;
+        window.location.href = `http://localhost:3033/pages/user/${data.data.user}`;
     })
     .catch((error) => {
         document.querySelector(".error-box").style.display = "block";
@@ -30,7 +27,6 @@ document.getElementById('create-user').addEventListener('click', () => {
         "name": username,
         "password": password
     }).then(async (data) => {
-        document.cookie = `auth_token=${data.data.token}`;
         document.location.href = `http://localhost:3033/pages/user/${data.data.user}`;
     })
 });

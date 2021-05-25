@@ -18,9 +18,11 @@ class UserController {
 
             await this.userRepository.updateUserToken(user.id, token);
 
-            res.status(200).send({ user: user.id, token: token });
+            res.cookie("auth_token", token);
+
+            return res.status(200).send({ user: user.id, token: token });
         } else {
-            res.status(400).send({ message: "Invalid arguments" });
+            return res.status(400).send({ message: "Invalid arguments" });
         }
     }
 
@@ -29,6 +31,8 @@ class UserController {
         const token = signToken({ id: newUser.id }, process.env.JWT_SECRET);
 
         await this.userRepository.updateUserToken(newUser.id, token);
+
+        res.cookie("auth_token", token);
 
         return res.status(200).send({ user: newUser.id, token: token });
     }
@@ -46,6 +50,8 @@ class UserController {
     }
 
     logout = async (req: Request, res: Response) => {
+        res.clearCookie("auth_token", { path: "/" });
+
         await this.userRepository.updateUserToken(req.body.user_me, null);
 
         return res.status(204);

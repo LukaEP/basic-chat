@@ -10,8 +10,7 @@ class Authentication {
     }
 
     auth = async (req: Request, res: Response, next: NextFunction) => {
-        const token = req.headers.authorization;
-        console.log(req.headers);
+        const token = req.cookies.auth_token;
         const userId = !req.params.user ? req.body.user_me : req.params.user;
         if (!token) {
             res.status(401).send({ message: "Unauthorized" });
